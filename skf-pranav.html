@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>SKF Fashions — Pranav</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --navy:#0d1b3e;--blue:#1a4ed8;--bl:#3b82f6;--green:#10b981;
+  --red:#ef4444;--amber:#f59e0b;--purple:#8b5cf6;
+  --bg:#eef1f8;--sur:#fff;--sur2:#f5f7fc;
+  --text:#0d1b3e;--mut:#6b7a9f;--bdr:#e0e4f0;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{font-size:16px;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+/* TOPBAR */
+.topbar{background:var(--navy);padding:0 20px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.brand{display:flex;align-items:center;gap:10px;}
+.badge{width:36px;height:36px;border-radius:10px;background:var(--dc,#1a4ed8);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;color:#fff;font-size:13px;flex-shrink:0;}
+.bname{color:#fff;font-family:'Syne',sans-serif;font-weight:700;font-size:14px;line-height:1.2;}
+.bdept{color:rgba(255,255,255,0.4);font-size:10px;}
+.clk{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:5px 11px;font-size:11px;color:rgba(255,255,255,0.6);white-space:nowrap;}
+.clk b{color:#fff;font-weight:600;}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,var(--dc,#1a4ed8) 0%,var(--navy) 100%);padding:24px 20px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;right:-40px;top:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.06);}
+.hgreet{color:rgba(255,255,255,0.6);font-size:12px;margin-bottom:3px;}
+.htitle{color:#fff;font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(16px,4vw,22px);line-height:1.3;}
+.hsub{color:rgba(255,255,255,0.45);font-size:12px;margin-top:5px;line-height:1.5;}
+.hnav{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
+.hnav a{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff;padding:6px 14px;border-radius:8px;text-decoration:none;font-size:12px;font-weight:600;transition:all .2s;}
+.hnav a:hover,.hnav a.on{background:#fff;color:var(--dc,#1a4ed8);}
+
+/* MAIN */
+.main{max-width:900px;margin:0 auto;padding:16px;display:flex;flex-direction:column;gap:14px;}
+
+/* CARD */
+.card{background:var(--sur);border:1px solid var(--bdr);border-radius:14px;overflow:hidden;}
+.card-hd{padding:13px 16px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.card-t{font-family:'Syne',sans-serif;font-weight:700;font-size:13px;display:flex;align-items:center;gap:7px;}
+.card-b{padding:14px 16px;}
+
+/* STATUS GRID */
+.sgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;}
+.sbtn{padding:12px 8px;border-radius:11px;border:2px solid var(--bdr);background:var(--sur2);cursor:pointer;text-align:center;transition:all .2s;font-family:'DM Sans',sans-serif;-webkit-tap-highlight-color:transparent;}
+.sbtn:hover,.sbtn.sel{border-color:var(--dc,#1a4ed8);background:var(--dl,#eff6ff);}
+.sbtn .si{font-size:22px;display:block;margin-bottom:4px;}
+.sbtn .sl{font-size:12px;font-weight:600;display:block;}
+.sbtn .sd{font-size:10px;color:var(--mut);margin-top:2px;display:block;}
+
+/* BUTTONS */
+.sub-btn{width:100%;padding:12px;background:var(--dc,#1a4ed8);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:12px;-webkit-tap-highlight-color:transparent;transition:opacity .2s;}
+.sub-btn:hover{opacity:.88;}
+.sub-btn:disabled{opacity:.5;cursor:not-allowed;}
+.rbtn{background:var(--sur2);border:1px solid var(--bdr);border-radius:8px;padding:5px 11px;font-size:11px;font-weight:600;cursor:pointer;color:var(--mut);font-family:'DM Sans',sans-serif;-webkit-tap-highlight-color:transparent;}
+.rbtn:hover{background:var(--sur);color:var(--text);}
+
+/* FORM */
+.fg{margin-bottom:12px;}
+.fg label{display:block;font-size:10px;font-weight:700;color:var(--mut);margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px;}
+.fg input,.fg select,.fg textarea{width:100%;padding:10px 12px;border:1px solid var(--bdr);border-radius:10px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;background:var(--sur2);color:var(--text);-webkit-appearance:none;}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--bl);background:#fff;}
+.fg textarea{resize:vertical;min-height:80px;}
+
+/* TASKS */
+.ti{display:flex;align-items:flex-start;gap:10px;padding:11px 0;border-bottom:1px solid var(--bdr);}
+.ti:last-child{border-bottom:none;padding-bottom:0;}
+.tdot{width:9px;height:9px;border-radius:50%;margin-top:4px;flex-shrink:0;}
+.tdot.pending{background:var(--amber);}.tdot.done{background:var(--green);}
+.tn{font-size:13px;font-weight:600;line-height:1.3;}
+.tm2{font-size:11px;color:var(--mut);margin-top:2px;}
+.ts{margin-left:auto;font-size:10px;font-weight:600;padding:3px 9px;border-radius:20px;white-space:nowrap;flex-shrink:0;}
+.ts-p{background:#fffbeb;color:#d97706;}.ts-d{background:#ecfdf5;color:#059669;}
+
+/* ANNOUNCEMENTS */
+.ann{border-radius:11px;padding:12px 14px;margin-bottom:9px;}
+.ann:last-child{margin-bottom:0;}
+.ann.info{background:#eff6ff;border:1px solid #bfdbfe;}.ann.info .ann-t{color:#1e40af;}.ann.info .ann-m{color:#3b82f6;}
+.ann.warn{background:#fffbeb;border:1px solid #fde68a;}.ann.warn .ann-t{color:#92400e;}.ann.warn .ann-m{color:#d97706;}
+.ann.success{background:#ecfdf5;border:1px solid #a7f3d0;}.ann.success .ann-t{color:#065f46;}.ann.success .ann-m{color:#059669;}
+.ann-t{font-size:13px;font-weight:700;margin-bottom:3px;}
+.ann-m{font-size:12px;line-height:1.5;}
+
+/* BADGES */
+.sbg{font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;}
+.syn{background:#ecfdf5;color:#059669;}.syni{background:#fffbeb;color:#d97706;}.syne{background:#fef2f2;color:#dc2626;}
+.pulse{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;flex-shrink:0;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+
+/* TOOLS */
+.tgrid{display:grid;gap:10px;}
+.tc{background:var(--sur);border:1px solid var(--bdr);border-radius:12px;padding:13px;display:flex;align-items:center;gap:11px;text-decoration:none;color:inherit;transition:all .2s;-webkit-tap-highlight-color:transparent;}
+.tc:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,0.08);border-color:var(--bl);}
+.tc-ic{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.tc-n{font-size:13px;font-weight:600;}
+.tc-t{font-size:11px;color:var(--mut);margin-top:1px;}
+.tc-tag{display:inline-block;margin-top:4px;font-size:9px;font-weight:700;text-transform:uppercase;padding:2px 7px;border-radius:20px;}
+.tc-arr{margin-left:auto;color:var(--mut);font-size:16px;}
+.tc:hover .tc-arr{color:var(--blue);}
+.ftabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px;}
+.ftab{padding:5px 12px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid var(--bdr);background:var(--sur);color:var(--mut);-webkit-tap-highlight-color:transparent;}
+.ftab.on{background:var(--navy);color:#fff;border-color:var(--navy);}
+
+/* SUCCESS BOX */
+.ok-box{background:#ecfdf5;border:1px solid #a7f3d0;border-radius:12px;padding:20px;text-align:center;display:none;}
+.ok-box.show{display:block;}
+.ok-box .tick{font-size:32px;margin-bottom:8px;}
+.ok-box h3{color:#065f46;font-family:'Syne',sans-serif;font-size:15px;font-weight:700;}
+.ok-box p{color:#059669;font-size:12px;margin-top:3px;}
+
+/* LOADING */
+.loading{text-align:center;padding:24px;color:var(--mut);font-size:13px;}
+.spinner{display:inline-block;width:16px;height:16px;border:2px solid var(--bdr);border-top-color:var(--bl);border-radius:50%;animation:spin .8s linear infinite;margin-right:6px;vertical-align:middle;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.empty{text-align:center;padding:24px;color:var(--mut);font-size:13px;}
+.page{display:none;}.page.on{display:block;}
+
+/* TOAST */
+.toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;padding:11px 20px;border-radius:10px;font-size:13px;font-weight:500;display:none;z-index:999;box-shadow:0 6px 20px rgba(0,0,0,0.2);white-space:nowrap;}
+.toast.show{display:block;}
+
+/* FOOTER */
+.footer{text-align:center;padding:20px 16px;color:var(--mut);font-size:11px;}
+
+/* ── RESPONSIVE ── */
+
+/* MOBILE: up to 600px */
+
+  .bname{font-size:13px;}
+  .clk{display:none;}
+  .hero{padding:18px 14px;}
+  .htitle{font-size:18px;}
+  .hnav a{padding:5px 11px;font-size:11px;}
+  .main{padding:12px;}
+  .card-hd{padding:11px 14px;}
+  .card-b{padding:12px 14px;}
+  .sgrid{grid-template-columns:1fr 1fr;}
+  .sbtn .si{font-size:18px;}
+  .sbtn .sl{font-size:11px;}
+  .sbtn .sd{display:none;}
+  .tgrid{grid-template-columns:1fr;}
+  .fg input,.fg select,.fg textarea{font-size:16px;} /* prevent iOS zoom */
+  .sub-btn{font-size:14px;padding:13px;}
+}
+
+/* TABLET: 601px to 900px */
+@media(min-width:601px) and (max-width:900px){
+  .main{padding:14px;}
+  .tgrid{grid-template-columns:repeat(2,1fr);}
+  .sgrid{grid-template-columns:repeat(2,1fr);}
+  .two-col{grid-template-columns:1fr;}
+}
+
+/* PC: 901px+ */
+@media(min-width:901px){
+  .tgrid{grid-template-columns:repeat(3,1fr);}
+  .sgrid{grid-template-columns:repeat(2,1fr);}
+  .two-col{grid-template-columns:1fr 1fr;}
+}
+
+:root{--dc:#ef4444;--dl:#fef2f2;}
+.two-col{display:grid;gap:14px;}
+
+/* ===== FULLY RESPONSIVE — MOBILE + TABLET + PC ===== */
+@media(max-width:1200px){
+  .srow,.stats-row{grid-template-columns:repeat(2,1fr);}
+  .tgrid,.tool-grid{grid-template-columns:repeat(2,1fr);}
+  .bgrid,.bottom-grid{grid-template-columns:1fr;}
+}
+@media(max-width:900px){
+  .sidebar,.sb-brand+*{display:none!important;}
+  .main{margin-left:0!important;padding:14px!important;}
+  .srow,.stats-row{grid-template-columns:repeat(2,1fr);}
+  .tgrid,.tool-grid{grid-template-columns:repeat(2,1fr);}
+  .hero,.hl,.hero-left{flex-direction:column!important;}
+  .hstats,.hero-stats{flex-wrap:wrap;gap:8px!important;}
+  .hs,.hero-stat{min-width:60px!important;padding:10px 12px!important;}
+  .topbar,.tr{flex-wrap:wrap;gap:8px!important;}
+  .srch,.search-box{width:100%!important;}
+  .clk,.date-chip{font-size:11px!important;}
+}
+@media(max-width:600px){
+  .srow,.stats-row{grid-template-columns:1fr 1fr;}
+  .tgrid,.tool-grid{grid-template-columns:1fr 1fr;}
+  .sgrid,.status-grid{grid-template-columns:1fr 1fr;}
+  .bgrid,.bottom-grid,.ga-grid,.google-apps-grid{grid-template-columns:1fr 1fr;}
+  .hero,.hl{padding:16px!important;}
+  .htitle,.hero-left h2{font-size:17px!important;}
+  .hbtns,.hero-btns{flex-wrap:wrap;gap:6px!important;}
+  .hbtn{font-size:11px!important;padding:5px 10px!important;}
+  .main{padding:10px!important;}
+  .panel,.card{border-radius:12px!important;}
+  .tc,.tool-card{padding:10px!important;}
+  .tc-ic,.tool-emoji{width:36px!important;height:36px!important;font-size:16px!important;}
+  .tc-n,.tool-info .name{font-size:12px!important;}
+  .sc,.stat-card{padding:11px 12px!important;gap:9px!important;}
+  .sc-v,.stat-info .val{font-size:17px!important;}
+}
+@media(max-width:400px){
+  .srow,.stats-row{grid-template-columns:1fr;}
+  .tgrid,.tool-grid{grid-template-columns:1fr;}
+  .sgrid,.status-grid{grid-template-columns:1fr;}
+  .bgrid,.ga-grid{grid-template-columns:1fr;}
+  .hstats,.hero-stats{display:none!important;}
+  body{font-size:13px;}
+}
+/* Mobile top nav bar when sidebar hidden */
+@media(max-width:900px){
+  .mob-nav{display:flex!important;}
+}
+.mob-nav{display:none;background:var(--navy);padding:8px 12px;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;border-bottom:1px solid rgba(255,255,255,0.08);}
+.mob-nav a,.mob-nav div{color:rgba(255,255,255,0.7);font-size:11px;font-weight:600;padding:5px 10px;border-radius:7px;white-space:nowrap;cursor:pointer;text-decoration:none;flex-shrink:0;}
+.mob-nav a:hover,.mob-nav div:hover,.mob-nav a.on,.mob-nav div.on{background:rgba(255,255,255,0.15);color:#fff;}
+/* Staff page two-col to single on mobile */
+@media(max-width:700px){
+  [style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important;}
+  [style*="grid-template-columns: 1fr 1fr"]{grid-template-columns:1fr!important;}
+}
+
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <div class="badge">SKF</div>
+    <div><div class="bname">SKF — Pranav</div><div class="bdept">Operations</div></div>
+  </div>
+  <div class="clk">📅 <span id="ld"></span> | <b id="lt"></b></div>
+</div>
+
+<div class="hero">
+  <div class="hgreet" id="greet">Good Morning 👋</div>
+  <div class="htitle">🚚 Hi Pranav! Your Dashboard</div>
+  <div class="hsub">Update status · Submit daily work · View tasks &amp; announcements</div>
+  <div class="hnav">
+    <a href="#" class="on" onclick="tab('dash',this);return false;">📊 Dashboard</a>
+    <a href="#" onclick="tab('tools',this);return false;">🛠️ Tools</a>
+    <a href="#" onclick="tab('history',this);return false;">📝 My History</a>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- DASHBOARD -->
+  <div class="page on" id="tab-dash">
+    <div class="two-col">
+      <!-- STATUS -->
+      <div class="card">
+        <div class="card-hd">
+          <div class="card-t"><div class="pulse"></div> My Status Today</div>
+          <span class="sbg syn" id="st-bg">✓ Ready</span>
+        </div>
+        <div class="card-b">
+          <div class="sgrid">
+            <button class="sbtn" id="s-done" onclick="pick('done')"><span class="si">✅</span><span class="sl">Present & Active</span><span class="sd">Working today</span></button>
+            <button class="sbtn" id="s-pending" onclick="pick('pending')"><span class="si">⏳</span><span class="sl">In Progress</span><span class="sd">Tasks ongoing</span></button>
+            <button class="sbtn" id="s-away" onclick="pick('away')"><span class="si">🔵</span><span class="sl">Away / Leave</span><span class="sd">Not available</span></button>
+            <button class="sbtn" id="s-wfh" onclick="pick('wfh')"><span class="si">🏠</span><span class="sl">Work From Home</span><span class="sd">Remote today</span></button>
+          </div>
+          <button class="sub-btn" id="st-btn" onclick="doStatus()" disabled>💾 Save My Status</button>
+        </div>
+      </div>
+      <!-- TASKS -->
+      <div class="card">
+        <div class="card-hd">
+          <div class="card-t">✅ My Tasks</div>
+          <button class="rbtn" onclick="loadTasks()">🔄 Refresh</button>
+        </div>
+        <div class="card-b" id="tasks-box"><div class="loading"><span class="spinner"></span>Loading tasks...</div></div>
+      </div>
+    </div>
+
+    <!-- DAILY UPDATE -->
+    <div class="card">
+      <div class="card-hd">
+        <div class="card-t">📝 Daily Work Update</div>
+        <span class="sbg syn" id="upd-bg">✓ Ready</span>
+      </div>
+      <div class="card-b">
+        <div id="upd-form">
+          <div class="fg"><label>What did you work on today?</label><textarea id="work" placeholder="e.g. Processed 15 orders, updated inventory..."></textarea></div>
+          <div class="two-col">
+            <div class="fg"><label>Issues / Blockers</label><input type="text" id="issues" placeholder="e.g. Courier delay"></div>
+            <div class="fg"><label>Tomorrow's Plan</label><input type="text" id="tmrw" placeholder="e.g. Complete dispatches"></div>
+          </div>
+          <button class="sub-btn" id="upd-btn" onclick="doUpdate()">📤 Submit Daily Update</button>
+        </div>
+        <div class="ok-box" id="upd-ok"><div class="tick">🎉</div><h3>Submitted!</h3><p>Your update is saved to Google Sheets.</p></div>
+      </div>
+    </div>
+
+    <!-- ANNOUNCEMENTS -->
+    <div class="card">
+      <div class="card-hd">
+        <div class="card-t">📢 Announcements from Admin</div>
+        <button class="rbtn" onclick="loadAnn()">🔄 Refresh</button>
+      </div>
+      <div class="card-b" id="ann-box"><div class="loading"><span class="spinner"></span>Loading...</div></div>
+    </div>
+  </div>
+
+  <!-- TOOLS -->
+  <div class="page" id="tab-tools">
+    <div class="ftabs" id="ftabs"><div class="ftab on" onclick="fTab('All',this)">All</div><div class="ftab" onclick="fTab('HR',this)">HR</div><div class="ftab" onclick="fTab('Finance',this)">Finance</div><div class="ftab" onclick="fTab('Production',this)">Production</div><div class="ftab" onclick="fTab('Inventory',this)">Inventory</div><div class="ftab" onclick="fTab('Dispatch',this)">Dispatch</div></div>
+    <div class="tgrid" id="tgrid"></div>
+  </div>
+
+  <!-- HISTORY -->
+  <div class="page" id="tab-history">
+    <div class="card">
+      <div class="card-hd">
+        <div class="card-t">📝 My Past Updates</div>
+        <button class="rbtn" onclick="loadHistory()">🔄 Refresh</button>
+      </div>
+      <div class="card-b" id="hist-box"><div class="loading"><span class="spinner"></span>Loading...</div></div>
+    </div>
+  </div>
+
+</div>
+<div class="footer">SKF Fashions · Pranav's Dashboard · Connected to Google Sheets</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const URL='https://script.google.com/macros/s/AKfycbxDmTsUyqO-20IKqmPWJnHJW-pjH3M7G6ngtHJfyF17sW3PMyW2UqPdXyIZwAUAVLS-0g/exec';
+const NAME='Pranav';
+const DEPT='Operations';
+const tools=[{n:"Attendance Form",t:"Google Forms",d:"HR",ic:"🗓️",bg:"#ecfdf5",url:"https://docs.google.com/forms"},
+{n:"Inventory Sheet",t:"Google Sheets",d:"Inventory",ic:"📦",bg:"#fffbeb",url:"https://sheets.google.com"},
+{n:"Expense Tracker",t:"Google Sheets",d:"Finance",ic:"💰",bg:"#f0fdf4",url:"https://sheets.google.com"},
+{n:"Dispatch Log",t:"Google Sheets",d:"Dispatch",ic:"🚚",bg:"#fef3c7",url:"https://sheets.google.com"},
+{n:"Production Log",t:"Google Sheets",d:"Production",ic:"🏭",bg:"#f5f3ff",url:"https://sheets.google.com"},
+{n:"Leave Request",t:"Google Forms",d:"HR",ic:"🏖️",bg:"#ecfdf5",url:"https://docs.google.com/forms"},
+{n:"Purchase Order",t:"Google Forms",d:"Finance",ic:"🛒",bg:"#f0fdf4",url:"https://docs.google.com/forms"},
+{n:"Company Calendar",t:"Google Calendar",d:"HR",ic:"📅",bg:"#eff6ff",url:"https://calendar.google.com"},
+{n:"Company Drive",t:"Google Drive",d:"All",ic:"🗂️",bg:"#fef9c3",url:"https://drive.google.com"},
+{n:"HR Records",t:"Google Sheets",d:"HR",ic:"👤",bg:"#ecfdf5",url:"https://sheets.google.com"},
+{n:"Issue Tracker",t:"Google Sheets",d:"All",ic:"⚠️",bg:"#fef2f2",url:"https://sheets.google.com"}];
+const dBg={Sales:'#dbeafe',HR:'#dcfce7',Finance:'#d1fae5',Production:'#ede9fe',Inventory:'#fef3c7',Dispatch:'#fed7aa',All:'#f1f5f9'};
+const dFg={Sales:'#1e40af',HR:'#166534',Finance:'#065f46',Production:'#5b21b6',Inventory:'#92400e',Dispatch:'#c2410c',All:'#475569'};
+let selSt=null;
+
+function tick(){
+  const n=new Date();
+  document.getElementById('lt').textContent=n.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  document.getElementById('ld').textContent=n.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
+  const h=n.getHours();
+  document.getElementById('greet').textContent=(h<12?'Good Morning':h<17?'Good Afternoon':'Good Evening')+' 👋';
+}
+tick();setInterval(tick,1000);
+
+function pick(s){
+  selSt=s;
+  ['done','pending','away','wfh'].forEach(x=>document.getElementById('s-'+x).classList.remove('sel'));
+  document.getElementById('s-'+s).classList.add('sel');
+  document.getElementById('st-btn').disabled=false;
+}
+
+async function doStatus(){
+  if(!selSt)return;
+  const btn=document.getElementById('st-btn'),b=document.getElementById('st-bg');
+  btn.textContent='Saving...';btn.disabled=true;b.textContent='⟳';b.className='sbg syni';
+  try{
+    const ex=await get('TeamStatus');const found=ex.find(m=>m.Name===NAME);
+    const now=new Date().toLocaleString('en-IN');
+    if(found)await post({sheet:'TeamStatus',action:'update',id:NAME,row:[NAME,DEPT,selSt,now]});
+    else await post({sheet:'TeamStatus',action:'add',row:[NAME,DEPT,selSt,now]});
+    b.textContent='✓ Saved';b.className='sbg syn';toast('✅ Status saved to Sheets!');
+  }catch(e){b.textContent='✗ Error';b.className='sbg syne';toast('⚠️ Error saving');}
+  btn.textContent='💾 Save My Status';btn.disabled=false;
+}
+
+async function doUpdate(){
+  const work=document.getElementById('work').value.trim();
+  if(!work){toast('⚠️ Please describe what you worked on');return;}
+  const issues=document.getElementById('issues').value.trim()||'None';
+  const tmrw=document.getElementById('tmrw').value.trim()||'TBD';
+  const btn=document.getElementById('upd-btn'),b=document.getElementById('upd-bg');
+  btn.textContent='Submitting...';btn.disabled=true;b.textContent='⟳';b.className='sbg syni';
+  const d=new Date();
+  try{
+    await post({sheet:'DailyUpdates',action:'add',row:[Date.now().toString(),NAME,DEPT,work,issues,tmrw,d.toLocaleDateString('en-IN'),d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})]});
+    b.textContent='✓ Saved';b.className='sbg syn';
+    document.getElementById('upd-form').style.display='none';
+    document.getElementById('upd-ok').classList.add('show');
+    toast('📤 Update saved to Google Sheets!');
+  }catch(e){b.textContent='✗ Error';b.className='sbg syne';toast('⚠️ Error. Try again.');btn.textContent='📤 Submit Daily Update';btn.disabled=false;}
+}
+
+async function loadTasks(){
+  const el=document.getElementById('tasks-box');
+  el.innerHTML='<div class="loading"><span class="spinner"></span>Loading...</div>';
+  try{
+    const tasks=await get('Tasks');
+    const mine=tasks.filter(t=>t.AssignedTo===NAME);
+    if(!mine.length){el.innerHTML='<div class="empty">🎉 No tasks assigned right now!</div>';return;}
+    el.innerHTML=mine.map(t=>`<div class="ti"><div class="tdot ${t.Status==='done'?'done':'pending'}"></div><div style="flex:1"><div class="tn">${t.Title}</div><div class="tm2">📅 ${t.DueDate||'No date'} · ${t.Department}</div></div><span class="ts ${t.Status==='done'?'ts-d':'ts-p'}">${t.Status==='done'?'✅ Done':'⏳ Pending'}</span></div>`).join('');
+  }catch(e){el.innerHTML='<div class="empty">⚠️ Could not load tasks.</div>';}
+}
+
+async function loadAnn(){
+  const el=document.getElementById('ann-box');
+  el.innerHTML='<div class="loading"><span class="spinner"></span>Loading...</div>';
+  try{
+    const data=await get('Announcements');
+    if(!data.length){el.innerHTML='<div class="empty">No announcements yet.</div>';return;}
+    el.innerHTML=data.reverse().map(a=>`<div class="ann ${a.Type||'info'}"><div class="ann-t">${a.Title}</div><div class="ann-m">${a.Message}</div><small style="opacity:.5;font-size:10px;">${a.Date||''}</small></div>`).join('');
+  }catch(e){el.innerHTML='<div class="empty">⚠️ Could not load.</div>';}
+}
+
+async function loadHistory(){
+  const el=document.getElementById('hist-box');
+  el.innerHTML='<div class="loading"><span class="spinner"></span>Loading...</div>';
+  try{
+    const data=await get('DailyUpdates');
+    const mine=data.filter(u=>u.Name===NAME);
+    if(!mine.length){el.innerHTML='<div class="empty">No updates submitted yet.</div>';return;}
+    el.innerHTML=mine.reverse().map(u=>`<div style="padding:12px 0;border-bottom:1px solid var(--bdr)"><div style="font-size:12px;font-weight:600;color:var(--mut)">📅 ${u.Date||''} &nbsp;⏰ ${u.Time||''}</div><div style="font-size:13px;margin-top:5px;font-weight:500;">📋 ${u.WorkDone||'—'}</div>${u.Issues&&u.Issues!=='None'?`<div style="font-size:12px;color:var(--red);margin-top:3px;">⚠️ ${u.Issues}</div>`:''}${u.TomorrowPlan&&u.TomorrowPlan!=='TBD'?`<div style="font-size:12px;color:var(--blue);margin-top:2px;">➡️ ${u.TomorrowPlan}</div>`:''}</div>`).join('');
+  }catch(e){el.innerHTML='<div class="empty">⚠️ Could not load history.</div>';}
+}
+
+function renderTools(list){
+  const g=document.getElementById('tgrid');
+  if(!list.length){g.innerHTML='<div class="empty">No tools found.</div>';return;}
+  g.innerHTML=list.map(t=>`<a class="tc" href="${t.url}" target="_blank"><div class="tc-ic" style="background:${t.bg}">${t.ic}</div><div style="flex:1"><div class="tc-n">${t.n}</div><div class="tc-t">${t.t}</div><span class="tc-tag" style="background:${dBg[t.d]||'#f1f5f9'};color:${dFg[t.d]||'#475569'}">${t.d}</span></div><span class="tc-arr">→</span></a>`).join('');
+}
+
+function fTab(d,el){
+  document.querySelectorAll('.ftab').forEach(e=>e.classList.remove('on'));
+  el.classList.add('on');
+  renderTools(d==='All'?tools:tools.filter(t=>t.d===d||t.d==='All'));
+}
+
+function tab(id,el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  document.getElementById('tab-'+id).classList.add('on');
+  document.querySelectorAll('.hnav a').forEach(a=>a.classList.remove('on'));
+  el.classList.add('on');
+  if(id==='tools')renderTools(tools);
+  if(id==='history')loadHistory();
+}
+
+async function get(s){const r=await fetch(`${URL}?sheet=${s}`);return r.json();}
+async function post(d){const r=await fetch(URL,{method:'POST',body:JSON.stringify(d)});return r.json();}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3200);}
+
+loadTasks();loadAnn();renderTools(tools);
+</script>
+</body>
+</html>
